@@ -41,7 +41,7 @@ class historiaMedica{
 usuario -o pago
 usuario -down-o citas
 usuario -down-o Mascota
-Mascota -* historiaMedica
+Mascota *- historiaMedica
 citas -o servicio
 
 
