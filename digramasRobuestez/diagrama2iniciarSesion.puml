@@ -1,0 +1,42 @@
+@startuml
+
+actor Usuario as usuario
+boundary "Interfaz de Iniciar Sesión" as feIniciarSesion
+
+usuario -> feIniciarSesion
+
+control "Ingresar email" as ingresarEmail
+control "Ingresar contraseña" as ingresarContraseña
+
+feIniciarSesion -up-> ingresarEmail
+ingresarEmail --> ingresarContraseña
+
+control "Botón Iniciar Sesión" as botonIniciarSesion
+control "Botón Registrarse" as botonRegistrarse
+
+ingresarContraseña -down-> botonIniciarSesion
+feIniciarSesion -up-> botonIniciarSesion
+feIniciarSesion -up-> botonRegistrarse
+
+control "Validar información " as validarCredenciales
+boundary "Mostrar mensaje de error" as mostrarError
+control "Iniciar sesión" as iniciarSesion
+
+
+usecase (Interfaz de Menú) as InterfazMenu 
+usecase (Interfaz de Registro)as InterfazRegistro
+
+botonIniciarSesion -> validarCredenciales
+validarCredenciales -down-> mostrarError : Los datos son  inválidos
+validarCredenciales -right-> iniciarSesion : Los datos son válidos
+mostrarError -down-> feIniciarSesion : Mostrar mensaje de error
+iniciarSesion -down-> InterfazMenu : se dirigue a 
+botonRegistrarse -down-> InterfazRegistro : se dirigue a
+
+
+
+
+
+@enduml
+
+

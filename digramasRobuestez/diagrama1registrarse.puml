@@ -1,0 +1,44 @@
+@startuml
+
+actor Usuario as usuario
+boundary "Interfaz de Registro" as feRegistro
+
+usuario -> feRegistro
+
+control "Ingresar nombre" as ingresarNombre
+control "Ingresar apellido" as ingresarApellido
+control "Ingresar ciudad" as ingresarCiudad
+control "Ingresar email" as ingresarEmail
+control "Ingresar contraseña" as ingresarContraseña
+control "Ingresar teléfono" as ingresarTeléfono
+
+feRegistro -up-> ingresarNombre
+ingresarNombre -> ingresarApellido
+ingresarApellido -> ingresarCiudad
+ingresarCiudad -> ingresarEmail
+ingresarEmail -down-> ingresarContraseña
+ingresarContraseña -down-> ingresarTeléfono
+
+control "Clic en Botón Continuar" as botonContinuar
+
+ingresarTeléfono -down-> botonContinuar
+feRegistro --> botonContinuar
+
+control "Validar datos ingresados" as validarDatos
+boundary "Mostrar mensaje" as mostrarError
+control "Guardar datos de registro" as guardarDatosRegistro
+entity "Usuario" as entidadUsuario
+
+botonContinuar -> validarDatos
+validarDatos -down-> mostrarError
+mostrarError -down-> feRegistro : Mostrar mensaje de error de datos incompletos 
+mostrarError -right-> guardarDatosRegistro : Datos válidos y completos
+guardarDatosRegistro -down-> entidadUsuario
+
+
+usecase (Iniciar sesion) as  fesesion
+
+
+guardarDatosRegistro -> fesesion
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+
+actor Usuario as usuario
+boundary "Interfaz de Menú" as feMenu
+
+usuario -> feMenu
+
+boundary "Ver medicinas" as verMedicinas
+boundary "Ver citas" as verCitas
+boundary "Ver contacto" as verContacto
+boundary "Ver galería" as verGaleria
+boundary "Administrar datos de usuario" as adminDatosUsuario
+
+feMenu -down-> verMedicinas
+feMenu -down-> verCitas
+feMenu -down-> verContacto
+feMenu -down-> verGaleria
+feMenu -down-> adminDatosUsuario
+
+entity "Base de datos" as baseDatos
+
+verMedicinas -down-> baseDatos : Consulta de medicinas
+verCitas -down-> baseDatos : Consulta de citas
+verContacto -down-> baseDatos : Consulta de contactos
+verGaleria -down-> baseDatos : Consulta de galería
+adminDatosUsuario -down-> baseDatos : Actualización de datos de usuario
+
+@enduml
